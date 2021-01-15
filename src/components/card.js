@@ -1,4 +1,40 @@
+const articles = document.querySelector(".articles")
+axios.get("https://lambda-times-api.herokuapp.com/articles")
+.then(res => {
+  const card = Card(res.data);
+  articles.appendChild(card)
 const Card = (article) => {
+  const card = document.createElement("div");
+  const headline = document.createElement("div");
+  const author = document.createElement("div");
+  const imageContainer = document.createElement("div");
+  const image = document.createElement("img");
+  const authorsName = document.createElement("span");
+
+  card.classList.add("card");
+  headline.classList.add("headline");
+  author.classList.add("author");
+  imageContainer.classList.add("img-container");
+  image.classList.add("authorPhoto");
+  authorsName.classList.add("authorName");
+  
+  headline.textContent = article.headline;
+  author.textContent = article.author;
+  image.src = article.authorPhoto;
+  authorsName.textContent = article.authorName;
+
+  card.appendChild(headline);
+  card.appendChild(author);
+  author.appendChild(imageContainer);
+  imageContainer.appendChild(image);
+  author.appendChild(authorsName);
+
+  card.addEventListener("click", () => {
+      card.classList.toggle("headline");
+  
+  })
+  return card
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
